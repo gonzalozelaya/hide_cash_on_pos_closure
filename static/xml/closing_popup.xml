@@ -1,7 +1,32 @@
-<template id="template" xml:space="preserve">
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
     <!-- Extiende el template ClosePosPopup -->
-    <t t-name="your_module.CustomClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
-
-        <!-- Cambia el título de la ventana modal -->
+    <t t-name="hide_cash_on_pos_closure.CustomClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
+        <xpath expr="//div[@class='total-orders fw-bolder']" position="replace">
+            <div class="total-orders fw-bolder">
+             Total <t t-esc="props.orders_details.quantity"/> ordenes:
+                    <span class="amount">******</span>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-if='pos.config.cash_control']" position="replace">
+              <tbody>
+                    <tr>
+                        <td t-esc="props.default_cash_details.name"/>
+                        <td>*****</td>
+                        <td class="d-flex">
+                            <Input tModel="[state.payments[props.default_cash_details.id], 'counted']"
+                                callback.bind="(value) =>  this.setManualCashInput(value)"
+                                isValid.bind="env.utils.isValidFloat"/>
+                            <div class="button icon ClosePosPopup btn btn-secondary" t-on-click="openDetailsPopup">
+                                <i class="fa fa-money fa-2x" role="img" title="Open the money details popup"/>
+                            </div>
+                        </td>
+                        <td>
+                            *******
+                        </td>
+                    </tr>
+                </tbody>
+        </xpath>
+        
     </t>
-</template>
+</templates>
