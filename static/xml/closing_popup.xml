@@ -1,0 +1,7 @@
+<template id="template" xml:space="preserve">
+    <!-- Extiende el template ClosePosPopup -->
+    <t t-name="your_module.CustomClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
+
+        <!-- Cambia el título de la ventana modal -->
+    </t>
+</template>
